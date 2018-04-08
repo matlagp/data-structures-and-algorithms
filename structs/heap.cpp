@@ -46,3 +46,8 @@ heap* build_max_heap(int A[], int n) {
 
     return h;
 }
+
+void destroy_heap(heap *h) {
+    delete[] h->tab;
+    delete h;
+}

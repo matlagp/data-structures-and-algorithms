@@ -13,5 +13,6 @@ int left(int i);
 int right(int i);
 void max_heapify(heap *h, int i);
 heap* build_max_heap(int A[], int n);
+void destroy_heap(heap *h);
 
 #endif

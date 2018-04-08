@@ -16,8 +16,9 @@ int* generate_random_array(int size) {
 void print_array(int *a, int size) {
     for (int i = 0; i < size; i++) {
         if (i % 5 == 0) {
-            std::cout << endl;
+            std::cout << std::endl;
         }
         std::cout << a[i] << " ";
     }
+    std::cout << std::endl;
 }
