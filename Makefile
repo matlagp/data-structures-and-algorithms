@@ -1,9 +1,8 @@
 CXX=g++
+CFLAGS=-I.
+
 SDIR=./structs
-CFLAGS=-I$(SDIR)
-
 ODIR=./obj
-
 BINDIR=./bin
 
 $(ODIR)/array.o: $(SDIR)/array.cpp $(SDIR)/array.h
@@ -15,8 +14,37 @@ $(ODIR)/heap.o: $(SDIR)/heap.cpp $(SDIR)/heap.h
 $(ODIR)/linked_list.o: $(SDIR)/linked_list.cpp $(SDIR)/linked_list.h
 	$(CXX) -c -o $@ $< $(CFLAGS)
 
+$(ODIR)/sorting.o: sorting.cpp sorting.h $(ODIR)/heap.o
+	$(CXX) -c -o $@ $< $(CFLAGS)
+
+$(ODIR)/insertion_sort.o: sorting_algorithms/insertion_sort.cpp
+	$(CXX) -c -o $@ $< $(CFLAGS)
+
+$(ODIR)/selection_sort.o: sorting_algorithms/selection_sort.cpp
+	$(CXX) -c -o $@ $< $(CFLAGS)
+
 $(ODIR)/heapsort.o: sorting_algorithms/heapsort.cpp
 	$(CXX) -c -o $@ $< $(CFLAGS)
 
-heapsort: $(ODIR)/heapsort.o $(ODIR)/heap.o $(ODIR)/array.o
+$(ODIR)/merge_sort.o: sorting_algorithms/merge_sort.cpp
+	$(CXX) -c -o $@ $< $(CFLAGS)
+
+$(ODIR)/quicksort.o: sorting_algorithms/quicksort.cpp
+	$(CXX) -c -o $@ $< $(CFLAGS)
+
+insertion_sort: $(ODIR)/array.o $(ODIR)/heap.o $(ODIR)/insertion_sort.o $(ODIR)/sorting.o
 	$(CXX) -o $(BINDIR)/$@.out $^ $(CFLAGS)
+
+selection_sort: $(ODIR)/array.o $(ODIR)/heap.o $(ODIR)/selection_sort.o $(ODIR)/sorting.o
+	$(CXX) -o $(BINDIR)/$@.out $^ $(CFLAGS)
+
+heapsort: $(ODIR)/array.o $(ODIR)/heap.o $(ODIR)/heapsort.o $(ODIR)/sorting.o
+	$(CXX) -o $(BINDIR)/$@.out $^ $(CFLAGS)
+
+merge_sort: $(ODIR)/array.o $(ODIR)/heap.o $(ODIR)/merge_sort.o $(ODIR)/sorting.o
+	$(CXX) -o $(BINDIR)/$@.out $^ $(CFLAGS)
+
+quicksort: $(ODIR)/array.o $(ODIR)/heap.o $(ODIR)/quicksort.o $(ODIR)/sorting.o
+	$(CXX) -o $(BINDIR)/$@.out $^ $(CFLAGS)
+
+sorting_algorithms: insertion_sort selection_sort heapsort merge_sort quicksort

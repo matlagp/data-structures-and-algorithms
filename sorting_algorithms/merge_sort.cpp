@@ -11,7 +11,7 @@ int main(int argc, char **argv) {
     int size = std::atoi(argv[1]);
     int *A = generate_random_array(size);
     print_array(A, size);
-    heapsort(A, size);
+    merge_sort(A, size);
     print_array(A, size);
 
     delete[] A;
