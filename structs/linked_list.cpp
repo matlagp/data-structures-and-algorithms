@@ -13,7 +13,7 @@ node* generate_list(int lrange, int hrange) {
 
 void print_list(node *head) {
     while (head != NULL) {
-        cout << head->key << " -> ";
+        std::cout << head->key << " -> ";
         head = head->next;
     }
     std::cout << "X\n";

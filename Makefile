@@ -14,6 +14,9 @@ $(ODIR)/heap.o: $(SDIR)/heap.cpp $(SDIR)/heap.h
 $(ODIR)/linked_list.o: $(SDIR)/linked_list.cpp $(SDIR)/linked_list.h
 	$(CXX) -c -o $@ $< $(CFLAGS)
 
+$(ODIR)/stack.o: $(SDIR)/stack.cpp $(SDIR)/stack.h
+	$(CXX) -c -o $@ $< $(CFLAGS)
+
 $(ODIR)/sorting.o: sorting.cpp sorting.h $(ODIR)/heap.o
 	$(CXX) -c -o $@ $< $(CFLAGS)
 
