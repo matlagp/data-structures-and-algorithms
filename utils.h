@@ -1,5 +1,5 @@
-#ifndef _ARRAY_H
-#define _ARRAY_H 1
+#ifndef _UTILS_H
+#define _UTILS_H 1
 
 // Helper structure mainly for sorting algorithms
 int* generate_random_array(int size);

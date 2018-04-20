@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 
-#include "array.h"
+#include "utils.h"
 
 int* generate_random_array(int size) {
     srand(time(NULL));

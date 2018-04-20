@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 
-#include "structs/array.h"
+#include "utils.h"
 #include "sorting.h"
 
 int main(int argc, char **argv) {

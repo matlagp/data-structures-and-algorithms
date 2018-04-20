@@ -1,16 +1,42 @@
 #ifndef _LLIST_H
 #define _LLIST_H 1
 
-struct node {
-    int key;
-    node *next;
+class Node {
+public:
+    Node() {
+        value = 0;
+        next = nullptr;
+    }
+    Node(int v) {
+        value = v;
+        next = nullptr;
+    }
+
+    int value;
+    Node *next;
 };
 
-node* generate_list(int lrange, int hrange);    // Return list in reverse order for sorting
-void print_list(node *head);
-node* append(node *head, int val);  // Place new element in the beggining of list
-node* insert(node *head, int val);  // Insert value into sorted list
-node* find(node *head, int val);
-void remove(node *head, node *el);
+class LinkedList {
+public:
+    LinkedList() {
+        head = nullptr;
+    }
+    // Return list in reverse order for sorting
+    LinkedList(int lrange, int hrange) : LinkedList{} {
+        for (int i = lrange; i <= hrange; i++) {
+            this->append(i);
+        }
+    }
+
+    void print();
+    Node* find(int val);
+    void append(int val);  // Place new element in the beggining of list
+    void insert(int val);  // Insert value into sorted list
+    void remove(Node *el);
+    Node* pop_head();
+
+private:
+    Node *head;
+};
 
 #endif

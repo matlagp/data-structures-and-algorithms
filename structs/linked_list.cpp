@@ -2,68 +2,66 @@
 
 #include "linked_list.h"
 
-node* generate_list(int lrange, int hrange) {
-    // Returns list in reversed order so it can be sorted right away
-    node *head = NULL;
-    for (int i = lrange; i <= hrange; i++) {
-        head = append(head, i);
-    }
-    return head;
-}
-
-void print_list(node *head) {
-    while (head != NULL) {
-        std::cout << head->key << " -> ";
-        head = head->next;
+void LinkedList::print() {
+    Node *current = this->head;
+    while (current != nullptr) {
+        std::cout << current->value << " -> ";
+        current = current->next;
     }
     std::cout << "X\n";
 }
 
-node* append(node *head, int val) {
-    node *tmp = new node;
-    tmp->key = val;
-    tmp->next = head;
-    return tmp;
+Node* LinkedList::find(int val) {
+    Node *current = this->head;
+    while (current != nullptr && current->value != val) {
+        current = current->next;
+    }
+    return current;
 }
 
-node* insert(node *head, int val) {
-    node *tmp = new node;
-    tmp->key = val;
+void LinkedList::append(int val) {
+    Node *tmp = new Node;
+    tmp->value = val;
+    tmp->next = this->head;
+    this->head = tmp;
+}
 
-    node *curr = head, *prev = NULL;
-    while (curr != NULL && curr->key < val) {
+void LinkedList::insert(int val) {
+    Node *tmp = new Node;
+    tmp->value = val;
+
+    Node *curr = this->head, *prev = nullptr;
+    while (curr != nullptr && curr->value < val) {
         prev = curr;
         curr = curr->next;
     }
 
     tmp->next = curr;
-    if (prev != NULL) {
+    if (prev != nullptr) {
         prev->next = tmp;
     } else {
-        head = tmp;
+        this->head = tmp;
     }
-
-    return head;
 }
 
-node* find(node *head, int val) {
-    while (head != NULL && head->key != val) {
-        head = head->next;
-    }
-    return head;
-}
-
-void remove(node *head, node *el) {
-    node *curr = head, *prev = NULL;
-    while (curr != NULL && curr != el) {
+void LinkedList::remove(Node *el) {
+    Node *curr = this->head, *prev = nullptr;
+    while (curr != nullptr && curr != el) {
         prev = curr;
         curr = curr->next;
     }
 
-    if (curr == NULL) {
+    if (curr == nullptr) {
         return;     // Element to remove is not in the list
     }
 
     prev->next = curr->next;
     delete curr;
+}
+
+Node* LinkedList::pop_head() {
+    // TODO: Rising exception in case of empty list
+    Node *tmp = this->head;
+    this->head = this->head->next;
+    return tmp;
 }

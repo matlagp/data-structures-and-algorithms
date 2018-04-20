@@ -1,16 +1,9 @@
+#include "sorting.h"
 #include "structs/heap.h"
 
 void heapsort(int A[], int n) {
-    heap *h = build_max_heap(A, n);
-    for (int i = h->heap_size-1; i >= 1; i--) {
-        int tmp = h->tab[0];
-        h->tab[0] = h->tab[i];
-        h->tab[i] = tmp;
-        h->heap_size--;
-        max_heapify(h, 0);
-    }
-
-    delete h;
+    Heap h(A, n);
+    A = h.sort();
 }
 
 void insertion_sort(int A[], int n) {

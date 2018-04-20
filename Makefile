@@ -5,7 +5,7 @@ SDIR=./structs
 ODIR=./obj
 BINDIR=./bin
 
-$(ODIR)/array.o: $(SDIR)/array.cpp $(SDIR)/array.h
+$(ODIR)/utils.o: utils.cpp utils.h
 	$(CXX) -c -o $@ $< $(CFLAGS)
 
 $(ODIR)/heap.o: $(SDIR)/heap.cpp $(SDIR)/heap.h
@@ -14,7 +14,7 @@ $(ODIR)/heap.o: $(SDIR)/heap.cpp $(SDIR)/heap.h
 $(ODIR)/linked_list.o: $(SDIR)/linked_list.cpp $(SDIR)/linked_list.h
 	$(CXX) -c -o $@ $< $(CFLAGS)
 
-$(ODIR)/stack.o: $(SDIR)/stack.cpp $(SDIR)/stack.h
+$(ODIR)/ll_stack.o: $(SDIR)/ll_stack.cpp $(SDIR)/ll_stack.h $(SDIR)/stack.h
 	$(CXX) -c -o $@ $< $(CFLAGS)
 
 $(ODIR)/sorting.o: sorting.cpp sorting.h $(ODIR)/heap.o
@@ -35,19 +35,19 @@ $(ODIR)/merge_sort.o: sorting_algorithms/merge_sort.cpp
 $(ODIR)/quicksort.o: sorting_algorithms/quicksort.cpp
 	$(CXX) -c -o $@ $< $(CFLAGS)
 
-insertion_sort: $(ODIR)/array.o $(ODIR)/heap.o $(ODIR)/insertion_sort.o $(ODIR)/sorting.o
+insertion_sort: $(ODIR)/utils.o $(ODIR)/heap.o $(ODIR)/insertion_sort.o $(ODIR)/sorting.o
 	$(CXX) -o $(BINDIR)/$@.out $^ $(CFLAGS)
 
-selection_sort: $(ODIR)/array.o $(ODIR)/heap.o $(ODIR)/selection_sort.o $(ODIR)/sorting.o
+selection_sort: $(ODIR)/utils.o $(ODIR)/heap.o $(ODIR)/selection_sort.o $(ODIR)/sorting.o
 	$(CXX) -o $(BINDIR)/$@.out $^ $(CFLAGS)
 
-heapsort: $(ODIR)/array.o $(ODIR)/heap.o $(ODIR)/heapsort.o $(ODIR)/sorting.o
+heapsort: $(ODIR)/utils.o $(ODIR)/heap.o $(ODIR)/heapsort.o $(ODIR)/sorting.o
 	$(CXX) -o $(BINDIR)/$@.out $^ $(CFLAGS)
 
-merge_sort: $(ODIR)/array.o $(ODIR)/heap.o $(ODIR)/merge_sort.o $(ODIR)/sorting.o
+merge_sort: $(ODIR)/utils.o $(ODIR)/heap.o $(ODIR)/merge_sort.o $(ODIR)/sorting.o
 	$(CXX) -o $(BINDIR)/$@.out $^ $(CFLAGS)
 
-quicksort: $(ODIR)/array.o $(ODIR)/heap.o $(ODIR)/quicksort.o $(ODIR)/sorting.o
+quicksort: $(ODIR)/utils.o $(ODIR)/heap.o $(ODIR)/quicksort.o $(ODIR)/sorting.o
 	$(CXX) -o $(BINDIR)/$@.out $^ $(CFLAGS)
 
 sorting_algorithms: insertion_sort selection_sort heapsort merge_sort quicksort
