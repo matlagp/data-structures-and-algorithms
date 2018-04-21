@@ -14,7 +14,10 @@ $(ODIR)/heap.o: $(SDIR)/heap.cpp $(SDIR)/heap.h
 $(ODIR)/linked_list.o: $(SDIR)/linked_list.cpp $(SDIR)/linked_list.h
 	$(CXX) -c -o $@ $< $(CFLAGS)
 
-$(ODIR)/ll_stack.o: $(SDIR)/ll_stack.cpp $(SDIR)/ll_stack.h $(SDIR)/stack.h
+$(ODIR)/ll_stack.o: $(SDIR)/ll_stack.cpp $(SDIR)/ll_stack.h $(SDIR)/stack.h $(ODIR)/linked_list.o
+	$(CXX) -c -o $@ $< $(CFLAGS)
+
+$(ODIR)/array_stack.o: $(SDIR)/array_stack.cpp $(SDIR)/array_stack.h $(SDIR)/stack.h
 	$(CXX) -c -o $@ $< $(CFLAGS)
 
 $(ODIR)/sorting.o: sorting.cpp sorting.h $(ODIR)/heap.o
