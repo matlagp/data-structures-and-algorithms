@@ -1,17 +1,17 @@
 #include <iostream>
 #include <cstdlib>
 
-#include "ll_stack.h"
+#include "ll_queue.h"
 
-void ListStack::push(int val) {
-    this->content.prepend(val);
+void ListQueue::put(int v) {
+    this->content.append(v);
     this->size++;
 }
 
-int ListStack::pop() {
+int ListQueue::get() {
     if (this->is_empty()) {
         // A bad way of handling this situation
-        std::cerr << "Error: Cannot pop value from empty stack\n";
+        std::cerr << "Error: Cannot get value from empty queue\n";
         std::exit(1);
     }
     Node *tmp = this->content.pop_head();
@@ -22,7 +22,7 @@ int ListStack::pop() {
     return v;
 }
 
-void ListStack::print() {
-    std::cout << "Stack: ";
+void ListQueue::print() {
+    std::cout << "Queue: ";
     this->content.print();
 }

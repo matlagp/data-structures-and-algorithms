@@ -20,6 +20,9 @@ $(ODIR)/ll_stack.o: $(SDIR)/ll_stack.cpp $(SDIR)/ll_stack.h $(SDIR)/stack.h $(OD
 $(ODIR)/array_stack.o: $(SDIR)/array_stack.cpp $(SDIR)/array_stack.h $(SDIR)/stack.h
 	$(CXX) -c -o $@ $< $(CFLAGS)
 
+$(ODIR)/ll_queue.o: $(SDIR)/ll_queue.cpp $(SDIR)/ll_queue.h $(SDIR)/queue.h $(ODIR)/linked_list.o
+	$(CXX) -c -o $@ $< $(CFLAGS)
+
 $(ODIR)/sorting.o: sorting.cpp sorting.h $(ODIR)/heap.o
 	$(CXX) -c -o $@ $< $(CFLAGS)
 
