@@ -23,6 +23,9 @@ $(ODIR)/array_stack.o: $(SDIR)/array_stack.cpp $(SDIR)/array_stack.h $(SDIR)/sta
 $(ODIR)/ll_queue.o: $(SDIR)/ll_queue.cpp $(SDIR)/ll_queue.h $(SDIR)/queue.h $(ODIR)/linked_list.o
 	$(CXX) -c -o $@ $< $(CFLAGS)
 
+$(ODIR)/hashtable.o: $(SDIR)/hashtable.cpp $(SDIR)/hashtable.h
+	$(CXX) -c -o $@ $< $(CFLAGS)
+
 $(ODIR)/sorting.o: sorting.cpp sorting.h $(ODIR)/heap.o
 	$(CXX) -c -o $@ $< $(CFLAGS)
 
