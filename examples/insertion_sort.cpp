@@ -1,8 +1,8 @@
 #include <iostream>
 #include <cstdlib>
 
-#include "utils.h"
-#include "sorting.h"
+#include "../utils.h"
+#include "../sorting_algorithms.h"
 
 int main(int argc, char **argv) {
     if (argc < 2) {

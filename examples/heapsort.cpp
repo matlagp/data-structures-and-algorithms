@@ -1,8 +1,8 @@
 #include <iostream>
 #include <cstdlib>
 
-#include "utils.h"
-#include "sorting.h"
+#include "../utils.h"
+#include "../sorting_algorithms.h"
 
 int main(int argc, char **argv) {
     if (argc < 2) {
@@ -11,7 +11,7 @@ int main(int argc, char **argv) {
     int size = std::atoi(argv[1]);
     int *A = generate_random_array(size);
     print_array(A, size);
-    selection_sort(A, size);
+    heapsort(A, size);
     print_array(A, size);
 
     delete[] A;

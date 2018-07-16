@@ -1,62 +1,26 @@
-CXX=g++
-CFLAGS=-I.
+# Automatic prerequisite generation thanks to http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
 
-SDIR=./structs
-ODIR=./obj
-BINDIR=./bin
+CXX = g++
+CFLAGS = -I.
+DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.Td
+SRCS = $(shell ls examples)
 
-$(ODIR)/utils.o: utils.cpp utils.h
-	$(CXX) -c -o $@ $< $(CFLAGS)
+DEPDIR = ./dep
+$(shell mkdir -p $(DEPDIR) >/dev/null)
+ODIR = ./obj
+BINDIR = ./bin
 
-$(ODIR)/heap.o: $(SDIR)/heap.cpp $(SDIR)/heap.h
-	$(CXX) -c -o $@ $< $(CFLAGS)
+COMPILE = $(CXX) $(CFLAGS) $(DEPFLAGS)
+POSTCOMPILE = @mv -f $(DEPDIR)/$*.Td $(DEPDIR)/$*.d && touch $@
 
-$(ODIR)/linked_list.o: $(SDIR)/linked_list.cpp $(SDIR)/linked_list.h
-	$(CXX) -c -o $@ $< $(CFLAGS)
+%: $(ODIR)/%.o
+	$(COMPILE) -o $(BINDIR)/$@.out $^
 
-$(ODIR)/ll_stack.o: $(SDIR)/ll_stack.cpp $(SDIR)/ll_stack.h $(SDIR)/stack.h $(ODIR)/linked_list.o
-	$(CXX) -c -o $@ $< $(CFLAGS)
+$(ODIR)/%.o: examples/%.cpp $(DEPDIR)/%.d
+	$(COMPILE) -c -o $@ $<
+	$(POSTCOMPILE)
 
-$(ODIR)/array_stack.o: $(SDIR)/array_stack.cpp $(SDIR)/array_stack.h $(SDIR)/stack.h
-	$(CXX) -c -o $@ $< $(CFLAGS)
+$(DEPDIR)/%.d: ;
+.PRECIOUS: $(DEPDIR)/%.d
 
-$(ODIR)/ll_queue.o: $(SDIR)/ll_queue.cpp $(SDIR)/ll_queue.h $(SDIR)/queue.h $(ODIR)/linked_list.o
-	$(CXX) -c -o $@ $< $(CFLAGS)
-
-$(ODIR)/hashtable.o: $(SDIR)/hashtable.cpp $(SDIR)/hashtable.h
-	$(CXX) -c -o $@ $< $(CFLAGS)
-
-$(ODIR)/sorting.o: sorting.cpp sorting.h $(ODIR)/heap.o
-	$(CXX) -c -o $@ $< $(CFLAGS)
-
-$(ODIR)/insertion_sort.o: sorting_algorithms/insertion_sort.cpp
-	$(CXX) -c -o $@ $< $(CFLAGS)
-
-$(ODIR)/selection_sort.o: sorting_algorithms/selection_sort.cpp
-	$(CXX) -c -o $@ $< $(CFLAGS)
-
-$(ODIR)/heapsort.o: sorting_algorithms/heapsort.cpp
-	$(CXX) -c -o $@ $< $(CFLAGS)
-
-$(ODIR)/merge_sort.o: sorting_algorithms/merge_sort.cpp
-	$(CXX) -c -o $@ $< $(CFLAGS)
-
-$(ODIR)/quicksort.o: sorting_algorithms/quicksort.cpp
-	$(CXX) -c -o $@ $< $(CFLAGS)
-
-insertion_sort: $(ODIR)/utils.o $(ODIR)/heap.o $(ODIR)/insertion_sort.o $(ODIR)/sorting.o
-	$(CXX) -o $(BINDIR)/$@.out $^ $(CFLAGS)
-
-selection_sort: $(ODIR)/utils.o $(ODIR)/heap.o $(ODIR)/selection_sort.o $(ODIR)/sorting.o
-	$(CXX) -o $(BINDIR)/$@.out $^ $(CFLAGS)
-
-heapsort: $(ODIR)/utils.o $(ODIR)/heap.o $(ODIR)/heapsort.o $(ODIR)/sorting.o
-	$(CXX) -o $(BINDIR)/$@.out $^ $(CFLAGS)
-
-merge_sort: $(ODIR)/utils.o $(ODIR)/heap.o $(ODIR)/merge_sort.o $(ODIR)/sorting.o
-	$(CXX) -o $(BINDIR)/$@.out $^ $(CFLAGS)
-
-quicksort: $(ODIR)/utils.o $(ODIR)/heap.o $(ODIR)/quicksort.o $(ODIR)/sorting.o
-	$(CXX) -o $(BINDIR)/$@.out $^ $(CFLAGS)
-
-sorting_algorithms: insertion_sort selection_sort heapsort merge_sort quicksort
+include $(wildcard $(pathsubs %,$(DEPDIR)/%.d,$(basename $(SRCS))))
